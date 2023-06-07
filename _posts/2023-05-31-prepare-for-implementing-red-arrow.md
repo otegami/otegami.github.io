@@ -2,7 +2,7 @@
 layout: post
 title: "Apache Arrow の Ruby バインディングに新機能を追加する 準備編"
 date: 2023-05-31 22:59:18 +0800
-categories: Apache Arrow
+categories: Apache-Arrow Red-Data-Tools
 ---
 
 ## 何をやりたいか
