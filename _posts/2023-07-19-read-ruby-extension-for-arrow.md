@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Apache Arrow の Ruby バインディングに新機能を追加する 実装編(2/3)"
+title: "Apache Arrow の Ruby バインディングに新機能を追加する 実装編 Part2"
 date: 2023-07-19 06:56 +0800
 categories: Red-Data-Tools
 ---
@@ -12,8 +12,9 @@ categories: Red-Data-Tools
 
 ## 記事の位置付け
 1. 追加したい機能を Ruby で実装してイメージを掴む
-2. Ruby が提供する C の API を学びながら追加対象に関連するコードを理解する <- **今回の記事はここ**
-3. 追加機能の実装を行う
+2. Ruby が提供する C の API を利用してどのように実装していくのか学ぶ <- **今回の記事はここ**
+3. 追加対象に関連するコードを読み解いていく
+4. 追加機能の実装を行う
 
 ## 前回までのあらすじ
 前回は、「追加したい機能を Ruby で実装してイメージを掴む」ためにイテレータを Ruby レベルではどのように実装するのかをみていきました。今回は、前回実装したコードをもとに Ruby が提供する C の API を利用してどのように実装していくのかを関連するコードを確認しながらみていきましょう。
@@ -100,4 +101,4 @@ ref: [Rubyt C API: rb_define_method](https://github.com/ruby/ruby/blob/master/do
 
 ref: [Rubyt C API: rb_yield](https://github.com/ruby/ruby/blob/master/doc/extension.rdoc#control-structure-)
 
-ここまでで大まかに C API を利用した実装の流れが追えたので、次の記事では実際に追加実装を行っていきます！
+ここまでで大まかに C API を利用した実装の流れが追えたので、次の記事では実際に実装な知識を得るために内部実装を読み解いていきます。
