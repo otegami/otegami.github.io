@@ -51,7 +51,7 @@ red_arrow::table_each_raw_record(unsigned long)
 [4, true]
 ```
 
-ここからは、マングリングって何？と気になる人向けになります。
+ここからは、マングリングって何？と気になる人 or 上記で解決しない場合のもう少ししっかりしたデバッグ知識を得たい人向けになります。
 
 ### マングリングとは？
 C++はRubyと異なり、ネームスペース、クラス、関数のオーバーロードなどで同じ名前を持つ要素が存在します。コンパイルしてバイナリに変換する際、これらの名前はリンカーによって区別される必要があります。
@@ -67,3 +67,33 @@ ref: [https://www.ibm.com/docs/ja/i/7.5?topic=linkage-name-mangling-c-only](http
 
 ref: [https://www.ibm.com/docs/ja/xl-c-and-cpp-aix/16.1?topic=utilities-demangling-compiled-c-names](https://www.ibm.com/docs/ja/xl-c-and-cpp-aix/16.1?topic=utilities-demangling-compiled-c-names)
 
+## 対応策（詳細編）
+デマングルすることで `red_arrow::table_each_raw_record` に問題があることがわかりました。
+では本当にこのシンボルがバイナリファイル(`arrow.bundle`)に存在しないのかを確認してみましょう！
+
+### バイナリファイル内からシンボルを探す
+バイナリファイルは、人間には読みづらいので `nm` コマンドでファイル内のシンボル情報を表示してもらいましょう。
+- 今回は、デマングルも同時に行いたいので `-C` オプションをつけてあげましょう。
+
+下記のような結果が出てきましたので、それぞれが意味するところをみていきましょう！
+
+```console
+% nm -C ext/arrow/arrow.bundle | grep red_arrow::table_each_raw_record
+                 U red_arrow::table_each_raw_record(unsigned long)
+00000000000077d8 T red_arrow::table_each_raw_records(unsigned long)
+```
+
+左からアドレス(シンボルのオフセット)シンボルのタイプ、シンボル名を表しています。
+では、`U` と `T` はそれぞれどういったシンボルのタイプなのかを確認してみましょう。
+`man` コマンドで `nm` の説明を見ていきます。
+
+```
+% man nm
+```
+
+どうやら、U (undefined) は未定義状態、T (text section symbol)は、テキストシンボルであることがわかりました。
+つまり、`red_arrow::table_each_raw_record` は未定義状態であり、`red_arrow::table_each_raw_records` は定義されていることがわかります。
+なので、今回はタイポしていそうなことがわかります。
+
+### 個人的に思ったこと
+バイナリファイル(オブジェクトファイル)をデバックするなどと聞くと身構えてしまいますが、人間が理解しやすい形にツールを利用し変換してあげれば、簡単にデバックできることを学びました。デバックができればあとは Try and Error
