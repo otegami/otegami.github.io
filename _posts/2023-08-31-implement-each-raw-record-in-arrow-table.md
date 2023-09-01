@@ -119,6 +119,7 @@ namespace red_arrow {
 今回の主体となる `RawRecordsProducer` クラスに対して変換し行毎に返すお仕事をしてもらうようのメソッド `RawRecordsProducer#produce` を定義していきます。
 
 ```c++
+// ruby/red-arrow/ext/arrow/raw-records.cpp
 namespace red_arrow {
   namespace {
     class RawRecordsProducer : private Converter, public arrow::ArrayVisitor {
