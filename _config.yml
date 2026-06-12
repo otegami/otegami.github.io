@@ -24,13 +24,20 @@ description: >- # this means to ignore newlines until "baseurl:"
   Otegami が技術的に気になったテーマをまとめるブログ
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://otegami.github.io/" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: TKStefano
+x_username: otegami_damakun
 github_username: otegami
 
 # Build settings
-theme: minima
 plugins:
   - jekyll-feed
+
+# A custom exclude replaces Jekyll's default, so the gem files are re-listed here.
+# `letters` is the gitignored symlink to internal planning docs — never publish it.
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - letters
 
 # Exclude from processing.
 # The following items will not be processed, by default.
