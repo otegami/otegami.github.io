@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'ja' }}">
+  {%- include head.html -%}
+  <body>
+    <header class="site-header">
+      <a class="site-title" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+      <nav class="site-nav">
+        <a href="{{ '/' | relative_url }}">Home</a>
+        <a href="{{ '/about/' | relative_url }}">About</a>
+      </nav>
+    </header>
+
+    <main class="content">
+      {{ content }}
+    </main>
+
+    <footer class="site-footer">
+      <p>© {{ site.time | date: '%Y' }} {{ site.title }}</p>
+      <p class="social">
+        {%- if site.github_username -%}<a href="https://github.com/{{ site.github_username }}">GitHub</a>{%- endif -%}
+        {%- if site.x_username -%}<a href="https://x.com/{{ site.x_username }}">X</a>{%- endif -%}
+        <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+      </p>
+    </footer>
+  </body>
+</html>
