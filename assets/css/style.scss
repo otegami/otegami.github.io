@@ -27,6 +27,9 @@ body {
 a { color: $accent; text-decoration: none; }
 a:hover { text-decoration: underline; }
 
+:focus-visible { outline: 2px solid $accent; outline-offset: 2px; }
+::selection { background: rgba(88, 166, 255, 0.3); }
+
 // ─── Layout shell ─────────────────────────────────────────
 .site-header, .content, .site-footer {
   max-width: 720px;
@@ -64,7 +67,16 @@ a:hover { text-decoration: underline; }
 .site-footer .social a { margin-left: 0.75rem; }
 
 // ─── Typography ───────────────────────────────────────────
-h1, h2, h3, h4 { color: $heading; line-height: 1.3; margin-top: 2rem; }
+h1, h2, h3, h4 {
+  color: $heading;
+  line-height: 1.3;
+  margin-top: 2.25rem;
+  scroll-margin-top: 1rem; // in-page anchors don't hide under the top edge
+  text-wrap: balance;
+}
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.2rem; }
+h4 { font-size: 1.05rem; }
 .page-title, .post-title { margin-top: 0; font-size: 1.9rem; }
 .site-description { color: $muted; margin-top: -0.5rem; }
 
